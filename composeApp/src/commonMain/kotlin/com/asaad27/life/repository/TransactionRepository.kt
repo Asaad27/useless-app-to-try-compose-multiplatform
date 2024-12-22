@@ -1,4 +1,4 @@
-package com.asaad27.life.dal
+package com.asaad27.life.repository
 
 import com.asaad27.life.model.PagedData
 import com.asaad27.life.model.Transaction

@@ -33,7 +33,6 @@ data class DonutSegment<T>(
 
 data class DonutSegmentInfo<T>(
     val segments: List<DonutSegment<T>>,
-    val totalWeight: Int,
     val availableDegrees: Float
 )
 

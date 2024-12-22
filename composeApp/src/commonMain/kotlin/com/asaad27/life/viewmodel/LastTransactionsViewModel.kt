@@ -2,7 +2,7 @@ package com.asaad27.life.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.asaad27.life.dal.TransactionRepository
+import com.asaad27.life.repository.TransactionRepository
 import com.asaad27.life.model.Transaction
 import com.asaad27.life.state.LastTransactionsEvent
 import com.asaad27.life.state.LastTransactionsState

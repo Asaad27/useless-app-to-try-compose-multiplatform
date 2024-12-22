@@ -136,7 +136,7 @@ private fun TransactionItem(
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             CategoryIcon(
-                iconResource = transaction.expenseCategory?.icon,
+                iconResource = transaction.spendingCategory?.icon,
                 modifier = Modifier.size(40.dp)
             )
 

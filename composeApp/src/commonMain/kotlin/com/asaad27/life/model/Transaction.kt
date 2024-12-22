@@ -5,5 +5,5 @@ data class Transaction(
     val timestampMs: Long,
     val amount: Double,
     val description: String,
-    val expenseCategory: ExpenseCategory? = null
+    val spendingCategory: SpendingCategory? = null
 )

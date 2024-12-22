@@ -20,12 +20,11 @@ object DonutCalculator {
         require(data.isNotEmpty()) { "Data list cannot be empty" }
         require(spacingDegrees * data.size < 360f) { "Total spacing cannot exceed 360 degrees" }
 
-        val totalWeight = data.sumOf { it.weight }
         val availableDegrees = 360f - (spacingDegrees * data.size)
 
         var currentAngle = 0f
         val segments = data.mapIndexed { index, item ->
-            val sweep = (item.weight.toFloat() / totalWeight) * availableDegrees
+            val sweep = item.percentage * availableDegrees
             DonutSegment(
                 item = item,
                 startAngle = currentAngle,
@@ -40,7 +39,6 @@ object DonutCalculator {
 
         return DonutSegmentInfo(
             segments = segments,
-            totalWeight = totalWeight,
             availableDegrees = availableDegrees
         )
 

@@ -1,50 +1,17 @@
-package com.asaad27.life.dal
+package com.asaad27.life.repository
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.icons.outlined.Call
-import androidx.compose.material.icons.outlined.Done
-import com.asaad27.life.model.ExpenseCategory
 import com.asaad27.life.model.PagedData
 import com.asaad27.life.model.Transaction
-import com.asaad27.life.util.IconResource
 import kotlinx.coroutines.delay
 import kotlinx.datetime.Clock
-import kotlin.time.Duration.Companion.days
 import kotlin.random.Random
+import kotlin.time.Duration.Companion.days
 
 class FakeTransactionRepository : TransactionRepository {
-    private val fakeCategories = listOf(
-        ExpenseCategory(
-            id = "groceries",
-            name = "Groceries",
-            icon = IconResource(Icons.Outlined.Add, "Groceries"),
-            totalAmount = 450.0
-        ),
-        ExpenseCategory(
-            id = "entertainment",
-            name = "Entertainment",
-            icon = IconResource(Icons.Outlined.Call, "Entertainment"),
-            totalAmount = 200.0
-        ),
-        ExpenseCategory(
-            id = "transport",
-            name = "Transport",
-            icon = IconResource(Icons.Outlined.Done, "Transport"),
-            totalAmount = 150.0
-        ),
-        ExpenseCategory(
-            id = "income",
-            name = "Income",
-            icon = IconResource(Icons.Outlined.Add, "Income"),
-            totalAmount = 3000.0
-        )
-    )
+    private val fakeCategories = FakeSpendingCategories.categories
 
     private val allTransactions = buildList {
-
         val currentTime = Clock.System.now()
-
         // Add salary
         add(
             Transaction(
@@ -52,7 +19,7 @@ class FakeTransactionRepository : TransactionRepository {
                 timestampMs = currentTime.toEpochMilliseconds(),
                 amount = 3000.0,
                 description = "Monthly Salary",
-                expenseCategory = fakeCategories.find { it.id == "income" }
+                spendingCategory = fakeCategories.find { it.id == "income" }
             )
         )
 
@@ -68,7 +35,7 @@ class FakeTransactionRepository : TransactionRepository {
                         timestampMs = timestamp.toEpochMilliseconds(),
                         amount = -45.0 - (Random.nextInt(10) * 30),
                         description = "Grocery Shopping",
-                        expenseCategory = fakeCategories.find { it.id == "groceries" }
+                        spendingCategory = fakeCategories.find { it.id == "groceries" }
                     )
                 )
             }
@@ -81,7 +48,7 @@ class FakeTransactionRepository : TransactionRepository {
                         timestampMs = timestamp.toEpochMilliseconds(),
                         amount = -25.0 - (Random.nextInt(10) * 20),
                         description = if (Random.nextInt(10) > 0.5) "Movie Night" else "Restaurant",
-                        expenseCategory = fakeCategories.find { it.id == "entertainment" }
+                        spendingCategory = fakeCategories.find { it.id == "entertainment" }
                     )
                 )
             }
@@ -94,7 +61,7 @@ class FakeTransactionRepository : TransactionRepository {
                         timestampMs = timestamp.toEpochMilliseconds(),
                         amount = -10.0 - (Random.nextInt(10) * 5),
                         description = "Public Transport",
-                        expenseCategory = fakeCategories.find { it.id == "transport" }
+                        spendingCategory = fakeCategories.find { it.id == "transport" }
                     )
                 )
             }
