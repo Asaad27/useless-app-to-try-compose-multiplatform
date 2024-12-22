@@ -1,7 +1,24 @@
 package com.asaad27.life.state
 
-data class DonutChartUiState<T>(
+import com.asaad27.life.model.DonutItem
+
+sealed interface DonutChartEvent {
+    data class SegmentClicked<T>(val index: Int, val item: DonutItem<T>) : DonutChartEvent
+    data object AnimationCompleted : DonutChartEvent
+}
+
+data class DonutChartUiState(
     val clickedIndex: Int? = null,
-    val shouldAnimate: Boolean = false,
-    val isScaled: Boolean = false
-)
+    val isScaled: Boolean = false,
+    val animationState: AnimationState = AnimationState.NotStarted
+) {
+    sealed class AnimationState {
+        data object NotStarted : AnimationState()
+        data object InProgress : AnimationState()
+        data object Completed : AnimationState()
+    }
+
+    val shouldAnimate: Boolean
+        get() = animationState == AnimationState.InProgress ||
+                animationState == AnimationState.NotStarted
+}
