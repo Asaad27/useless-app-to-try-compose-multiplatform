@@ -1,9 +1,12 @@
-package com.asaad27.life.ui.component
+package com.asaad27.life.ui.component.helper
 
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.ui.geometry.Offset
 import com.asaad27.life.model.DonutItem
+import com.asaad27.life.ui.component.DonutScale
+import com.asaad27.life.ui.component.DonutSegment
+import com.asaad27.life.ui.component.DonutSegmentInfo
 import com.asaad27.life.util.Radians
 import com.asaad27.life.util.toDegree
 import kotlin.math.atan2

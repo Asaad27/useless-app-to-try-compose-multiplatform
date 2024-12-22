@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.asaad27.life.model.DonutItem
 import com.asaad27.life.state.DonutChartEvent
 import com.asaad27.life.ui.animation.rememberProgressAnimationState
+import com.asaad27.life.ui.component.helper.DonutCalculator
 
 data class DonutSegment<T>(
     val item: DonutItem<T>,

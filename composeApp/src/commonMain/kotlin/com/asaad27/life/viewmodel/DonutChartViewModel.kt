@@ -3,7 +3,7 @@ package com.asaad27.life.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.asaad27.life.state.DonutChartEvent
-import com.asaad27.life.state.DonutChartUiState
+import com.asaad27.life.state.DonutChartState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -11,8 +11,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class DonutChartViewModel<T> : ViewModel() {
-    private val _uiState = MutableStateFlow(DonutChartUiState())
-    val uiState: StateFlow<DonutChartUiState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow(DonutChartState())
+    val uiState: StateFlow<DonutChartState> = _uiState.asStateFlow()
 
     init {
         startInitialAnimation()
@@ -20,7 +20,7 @@ class DonutChartViewModel<T> : ViewModel() {
 
     private fun startInitialAnimation() {
         viewModelScope.launch {
-            _uiState.update { it.copy(animationState = DonutChartUiState.AnimationState.InProgress) }
+            _uiState.update { it.copy(animationState = DonutChartState.AnimationState.InProgress) }
         }
     }
 
@@ -38,8 +38,8 @@ class DonutChartViewModel<T> : ViewModel() {
     private fun resetState() {
         viewModelScope.launch {
             _uiState.update {
-                DonutChartUiState(
-                    animationState = DonutChartUiState.AnimationState.NotStarted
+                DonutChartState(
+                    animationState = DonutChartState.AnimationState.NotStarted
                 )
             }
         }
@@ -68,6 +68,6 @@ class DonutChartViewModel<T> : ViewModel() {
     }
 
     private fun handleAnimationCompleted() {
-        _uiState.update { it.copy(animationState = DonutChartUiState.AnimationState.Completed) }
+        _uiState.update { it.copy(animationState = DonutChartState.AnimationState.Completed) }
     }
 }

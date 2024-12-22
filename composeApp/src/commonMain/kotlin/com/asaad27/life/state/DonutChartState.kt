@@ -7,7 +7,7 @@ sealed interface DonutChartEvent {
     data object AnimationCompleted : DonutChartEvent
 }
 
-data class DonutChartUiState(
+data class DonutChartState(
     val clickedIndex: Int? = null,
     val isScaled: Boolean = false,
     val animationState: AnimationState = AnimationState.NotStarted
