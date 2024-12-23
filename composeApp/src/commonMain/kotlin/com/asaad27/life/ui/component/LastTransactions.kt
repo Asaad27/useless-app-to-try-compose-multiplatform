@@ -1,12 +1,5 @@
 package com.asaad27.life.ui.component
 
-import androidx.compose.animation.core.FastOutSlowInEasing
-import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
-import androidx.compose.animation.core.tween
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,7 +14,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
-import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ElevatedCard
@@ -33,15 +25,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.asaad27.life.model.Transaction
 import com.asaad27.life.state.LastTransactionsEvent
 import com.asaad27.life.state.LastTransactionsState
+import com.asaad27.life.ui.component.shimmer.CardShimmerLayout
+import com.asaad27.life.ui.component.shimmer.ShimmerBox
+import com.asaad27.life.ui.component.shimmer.ShimmerCircle
+import com.asaad27.life.ui.component.shimmer.ShimmerEffect
+import com.asaad27.life.ui.component.shimmer.ShimmerLine
 import com.asaad27.life.util.IconResource
 import com.asaad27.life.util.currencyFormat
 import com.asaad27.life.util.format
@@ -166,85 +160,46 @@ private fun TransactionItem(
 }
 
 @Composable
-private fun TransactionsShimmer(modifier: Modifier = Modifier) {
-    val shimmerColors = listOf(
-        Color.LightGray.copy(alpha = 0.6f),
-        Color.LightGray.copy(alpha = 0.2f),
-        Color.LightGray.copy(alpha = 0.6f)
-    )
-
-    val transition = rememberInfiniteTransition(label = "shimmer")
-    val translateAnim = transition.animateFloat(
-        initialValue = 0f,
-        targetValue = 1000f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 1200, easing = FastOutSlowInEasing),
-            repeatMode = RepeatMode.Restart
-        ),
-        label = "shimmer"
-    )
-
-    val brush = Brush.linearGradient(
-        colors = shimmerColors,
-        start = Offset.Zero,
-        end = Offset(x = translateAnim.value, y = translateAnim.value)
-    )
-
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        repeat(5) {
-            ShimmerTransactionItem(brush = brush)
-        }
-    }
-}
-
-@Composable
-private fun ShimmerTransactionItem(brush: Brush) {
-    Card(
-        modifier = Modifier.fillMaxWidth(),
-        elevation = CardDefaults.elevatedCardElevation(defaultElevation = 2.dp)
-    ) {
-        Row(
-            modifier = Modifier
+fun TransactionsShimmer(modifier: Modifier = Modifier) {
+    ShimmerEffect { brush ->
+        Column(
+            modifier = modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            Box(
-                modifier = Modifier
-                    .size(40.dp)
-                    .background(brush)
-            )
-
-            Column(
-                modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(4.dp)
-            ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth(0.7f)
-                        .height(20.dp)
-                        .background(brush)
-                )
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth(0.4f)
-                        .height(16.dp)
-                        .background(brush)
+            repeat(5) {
+                CardShimmerLayout(
+                    leadingContent = {
+                        ShimmerCircle(brush = brush, size = 40.dp)
+                    },
+                    middleContent = {
+                        Column(
+                            modifier = Modifier.weight(1f),
+                            verticalArrangement = Arrangement.spacedBy(4.dp)
+                        ) {
+                            ShimmerLine(
+                                brush = brush,
+                                height = 20.dp,
+                                widthFraction = 0.7f
+                            )
+                            ShimmerLine(
+                                brush = brush,
+                                height = 16.dp,
+                                widthFraction = 0.4f
+                            )
+                        }
+                    },
+                    trailingContent = {
+                        ShimmerBox(
+                            brush = brush,
+                            modifier = Modifier
+                                .width(80.dp)
+                                .height(24.dp)
+                        )
+                    }
                 )
             }
-
-            Box(
-                modifier = Modifier
-                    .width(80.dp)
-                    .height(24.dp)
-                    .background(brush)
-            )
         }
     }
 }

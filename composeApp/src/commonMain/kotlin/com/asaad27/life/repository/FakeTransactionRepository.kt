@@ -24,7 +24,7 @@ class FakeTransactionRepository : TransactionRepository {
         )
 
         // Add regular expenses over the last 30 days
-        for (daysAgo in 0..30) {
+        for (daysAgo in 0..300) {
             val timestamp = currentTime.minus(daysAgo.days)
 
             // Groceries every 3-4 days
@@ -70,7 +70,7 @@ class FakeTransactionRepository : TransactionRepository {
 
     override suspend fun getTransactions(pageSize: Int, pageKey: String?): PagedData<Transaction> {
         // Simulate network delay
-        delay(500)
+        delay(5000)
 
         val startIndex = if (pageKey != null) {
             pageKey.toIntOrNull() ?: 0
