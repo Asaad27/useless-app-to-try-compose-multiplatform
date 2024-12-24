@@ -48,6 +48,7 @@ import com.asaad27.life.util.IconResource
 import com.asaad27.life.utils.AndroidDevicesPreview
 import com.asaad27.life.viewmodel.DonutChartViewModel
 import com.asaad27.life.viewmodel.LastTransactionsViewModel
+import kotlinx.datetime.Clock
 
 class MainActivity : ComponentActivity() {
     private val donutChartViewModel: DonutChartViewModel by viewModels {
@@ -192,7 +193,7 @@ fun LastTransactionsPreview() {
         transactions = listOf(
             Transaction(
                 id = "1",
-                timestampMs = System.currentTimeMillis(),
+                timestampMs = Clock.System.now(),
                 amount = -10.0,
                 description = "Transaction 1",
                 spendingCategory = SpendingCategory(
@@ -208,7 +209,7 @@ fun LastTransactionsPreview() {
             ),
             Transaction(
                 id = "2",
-                timestampMs = System.currentTimeMillis(),
+                timestampMs = Clock.System.now(),
                 amount = 20.0,
                 description = "Transaction 2",
                 spendingCategory = SpendingCategory(

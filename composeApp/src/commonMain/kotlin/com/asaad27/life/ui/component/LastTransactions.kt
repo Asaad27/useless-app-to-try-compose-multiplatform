@@ -81,6 +81,7 @@ private fun TransactionsList(
     onTransactionClick: (Transaction) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    // todo: transactions by day + load more button to load more instead of scroll + make pagination size by day
     LazyColumn(
         modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(8.dp),
