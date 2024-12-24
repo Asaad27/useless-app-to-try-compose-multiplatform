@@ -38,7 +38,7 @@ import com.asaad27.life.ui.component.shimmer.ShimmerEffect
 import com.asaad27.life.ui.component.shimmer.ShimmerLine
 import com.asaad27.life.util.IconResource
 import com.asaad27.life.util.currencyFormat
-import com.asaad27.life.util.format
+import com.asaad27.life.util.toHhMm
 
 @Composable
 fun LastTransactions(
@@ -145,7 +145,7 @@ private fun TransactionItem(
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
-                    text = transaction.timestampMs.format(),
+                    text = transaction.timestampMs.toHhMm(),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )

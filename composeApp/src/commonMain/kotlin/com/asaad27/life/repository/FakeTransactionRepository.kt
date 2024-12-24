@@ -4,6 +4,7 @@ import com.asaad27.life.model.PagedData
 import com.asaad27.life.model.Transaction
 import kotlinx.coroutines.delay
 import kotlinx.datetime.Clock
+import kotlinx.datetime.DateTimeUnit
 import kotlin.random.Random
 import kotlin.time.Duration.Companion.days
 
@@ -16,7 +17,7 @@ class FakeTransactionRepository : TransactionRepository {
         add(
             Transaction(
                 id = "income_1",
-                timestampMs = currentTime.toEpochMilliseconds(),
+                timestampMs = Clock.System.now(),
                 amount = 3000.0,
                 description = "Monthly Salary",
                 spendingCategory = fakeCategories.find { it.id == "income" }
@@ -32,7 +33,7 @@ class FakeTransactionRepository : TransactionRepository {
                 add(
                     Transaction(
                         id = "groceries_$daysAgo",
-                        timestampMs = timestamp.toEpochMilliseconds(),
+                        timestampMs = timestamp,
                         amount = -45.0 - (Random.nextInt(10) * 30),
                         description = "Grocery Shopping",
                         spendingCategory = fakeCategories.find { it.id == "groceries" }
@@ -45,7 +46,7 @@ class FakeTransactionRepository : TransactionRepository {
                 add(
                     Transaction(
                         id = "entertainment_$daysAgo",
-                        timestampMs = timestamp.toEpochMilliseconds(),
+                        timestampMs = timestamp,
                         amount = -25.0 - (Random.nextInt(10) * 20),
                         description = if (Random.nextInt(10) > 0.5) "Movie Night" else "Restaurant",
                         spendingCategory = fakeCategories.find { it.id == "entertainment" }
@@ -58,7 +59,7 @@ class FakeTransactionRepository : TransactionRepository {
                 add(
                     Transaction(
                         id = "transport_$daysAgo",
-                        timestampMs = timestamp.toEpochMilliseconds(),
+                        timestampMs = timestamp,
                         amount = -10.0 - (Random.nextInt(10) * 5),
                         description = "Public Transport",
                         spendingCategory = fakeCategories.find { it.id == "transport" }
